@@ -84,16 +84,10 @@ totalDeudaAFavor = sum.map millonesDeDeuda
 
 recetasOrdenadas :: Pais -> [Receta] -> Bool
 recetasOrdenadas _ [unaReceta] = True
-recetasOrdenadas pais (receta1:receta2:recetas) 
-    | calcularPBI (aplicarReceta pais receta1) < calcularPBI (aplicarReceta pais receta2) = recetasOrdenadas pais (receta2:recetas)
-    | otherwise = False
+recetasOrdenadas pais (receta1:receta2:recetas) = 
+    calcularPBI (aplicarReceta pais receta1) < calcularPBI (aplicarReceta pais receta2) && 
+    recetasOrdenadas pais (receta2:recetas)
 
-
-{-
-
-¿qué sucede evaluamos la función 4a con ese país? 
-¿y con la 4b?
-Justifique ambos puntos relacionándolos con algún concepto. -}
 -- Punto 6
 
 recursosNaturalesInfinitos :: [String]
@@ -106,12 +100,3 @@ recursosNaturalesInfinitos = "Energia" : recursosNaturalesInfinitos
 -- En cambio, en el 4b, gracias a la evaluacion perezosa de haskell y el hecho de que la infinidad
 -- esta dada en los recursos naturales, la funcion podria operar sin problemas ya que no tiene en cuenta
 -- esta lista para operar.
-
-inf = Pais {
-    nombre = "Namibia",
-    ingresoPerCapita = 4140,
-    empleadosPublicos = 400000,
-    empleadosPrivados = 650000,
-    recursosNaturales = recursosNaturalesInfinitos,
-    millonesDeDeuda = 50
-}
